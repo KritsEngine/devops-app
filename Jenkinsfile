@@ -13,5 +13,12 @@ pipeline {
                 echo 'GitHub checkout successful'
             }
         }
+
+        stage('Docker Build') {
+            steps {
+                sh 'docker build -t devops-app:v2 .'
+            }
+        }
     }
 }
+
