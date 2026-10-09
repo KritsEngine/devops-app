@@ -16,7 +16,7 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t devops-app:v2 .'
+                sh 'docker build -t devops-app:v4 .'
             }
         }
 
@@ -29,8 +29,8 @@ pipeline {
                 )]) {
                     sh '''
                         echo "$DOCKER_PASS" | docker login -u "$DOCKER_USER" --password-stdin
-                        docker tag devops-app:v2 $DOCKER_USER/devops-app:v2
-                        docker push $DOCKER_USER/devops-app:v2
+                        docker tag devops-app:v4 $DOCKER_USER/devops-app:v4
+                        docker push $DOCKER_USER/devops-app:v4
                     '''
                 }
             }
@@ -40,7 +40,7 @@ pipeline {
             steps {
                 sh '''
                     kubectl set image deployment/devops-app \
-                    devops-app=kriteshdoker/devops-app:v2
+                    devops-app=kriteshdoker/devops-app:v4
                     kubectl rollout status deployment/devops-app
                 '''
             }
